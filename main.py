@@ -1,2 +1,7 @@
+import logging
+import logging_config
+
 if __name__ == '__main__':
-    pass
+    logging_config.init()
+    logger = logging.getLogger()
+    logger.error(msg='Jenkins Console Output 에 로그 스트림 출력이 남는지 확인')
