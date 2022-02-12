@@ -1,5 +1,8 @@
 import logging
 import logging_config
+import file_func
+import html_func
+import time_func
 import csv
 logging_config.init()
 logger = logging.getLogger()
@@ -12,12 +15,19 @@ def print_log():
     logger.warning(msg='WARNING 로그 메세지')
 
 
-def save_file(file_name):
-    with open(file=file_name, mode='w', encoding='utf-8-sig', newline='') as f:
+def save_file(file):
+    with open(file=file, mode='w', encoding='utf-8-sig', newline='') as f:
         fw = csv.writer(f)
-        fw.writerow('TEST')
+        fw.writerow('TEST'.split(','))
+
+
+def save_html_file(file, html_title):
+    html_func.create(html_file=file, html_title=html_title)
 
 
 if __name__ == '__main__':
     print_log()
-    save_file(file_name='test.txt')
+    text_file = 'test.txt'
+    save_file(file=text_file)
+    html_file = 'file/html/example.html'
+    save_html_file(file=time_func.put_datetime_in_filename(file_type='html', file=html_file, include_seconds=True), html_title=file_func.convert_file_to_text(file=text_file))
