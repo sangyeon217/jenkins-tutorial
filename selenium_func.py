@@ -14,7 +14,7 @@ def set_chrome_driver(headless_option, secret_mode):
     if secret_mode:
         chrome_options.add_argument('--incognito')  # 시크릿 모드
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(log_level=0).install()), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(log_level=40).install()), options=chrome_options)
     return driver
 
 
