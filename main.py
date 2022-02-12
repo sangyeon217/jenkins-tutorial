@@ -1,5 +1,6 @@
 import logging
 import logging_config
+import selenium_func
 import file_func
 import html_func
 import time_func
@@ -25,9 +26,20 @@ def save_html_file(file, html_title):
     html_func.create(html_file=file, html_title=html_title)
 
 
+def save_screenshot():
+    driver = selenium_func.set_chrome_driver(headless_option=True, secret_mode=True)
+    url = "https://github.com/sangyeon217/jenkins-tutorial"
+    try:
+        driver.get(url)
+        selenium_func.save_full_page_screenshot(driver=driver, image_file_name='Screenshot.png', directory='file/screenshot/')
+    finally:
+        driver.quit()
+
+
 if __name__ == '__main__':
     print_log()
     text_file = 'test.txt'
     save_file(file=text_file)
     html_file = 'file/html/example.html'
     save_html_file(file=time_func.put_datetime_in_filename(file_type='html', file=html_file, include_seconds=True), html_title=file_func.convert_file_to_text(file=text_file))
+    save_screenshot()
