@@ -54,7 +54,8 @@ def pytest_runtest_makereport(item, call):
                 image_file = selenium_func.save_full_page_screenshot(driver=driver, image_file_name='Screenshot_'+test_case_name, directory=screenshot_directory)
                 relative_path_image_file = image_file.lstrip(parent_directory)
 
-                plugin_extras.append(pytest_html.extras.image(relative_path_image_file))
+                embedded_image = driver.get_screenshot_as_base64()
+                plugin_extras.append(pytest_html.extras.image(embedded_image))
                 plugin_extras.append(pytest_html.extras.url(relative_path_image_file, name='Screenshot'))
         elif has_driver:
             if (report.skipped and xfail) or (report.failed and not xfail):
