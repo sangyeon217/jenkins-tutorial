@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+import dir_func
 import time_func
 
 
@@ -16,6 +17,12 @@ def set_chrome_driver(headless_option, secret_mode):
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager(log_level=40).install()), options=chrome_options)
     return driver
+
+
+def make_screenshot_directory(directory, screenshot_directory_title):
+    screenshot_directory = directory + screenshot_directory_title + '_스크린샷/'
+    dir_func.mkdir_if_not_exist(directory=screenshot_directory)
+    return screenshot_directory
 
 
 def save_full_page_screenshot(driver, image_file_name, directory=''):
