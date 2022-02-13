@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-import dir_func
-import time_func
+from etc import dir_func
+from etc import time_func
 
 
 def set_chrome_driver(headless_option, secret_mode):

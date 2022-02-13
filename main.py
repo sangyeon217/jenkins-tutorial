@@ -1,9 +1,10 @@
 import logging
-import logging_config
-import selenium_func
-import file_func
-import html_func
-import time_func
+from file.log import logging_config
+from etc import selenium_func
+from etc import file_func
+from etc import html_func
+from etc import time_func
+from FileDirectory import FileDirectory
 import csv
 logging_config.init()
 logger = logging.getLogger()
@@ -31,7 +32,7 @@ def save_screenshot():
     url = "https://github.com/sangyeon217/jenkins-tutorial"
     try:
         driver.get(url)
-        selenium_func.save_full_page_screenshot(driver=driver, image_file_name='Screenshot.png', directory='file/screenshot/')
+        selenium_func.save_full_page_screenshot(driver=driver, image_file_name='Screenshot.png', directory=FileDirectory(directory_type='screenshot').today_directory)
     finally:
         driver.quit()
 
@@ -40,6 +41,5 @@ if __name__ == '__main__':
     print_log()
     text_file = 'test.txt'
     save_file(file=text_file)
-    html_file = 'file/html/example.html'
-    save_html_file(file=time_func.put_datetime_in_filename(file_type='html', file=html_file, include_seconds=True), html_title=file_func.convert_file_to_text(file=text_file))
+    save_html_file(file=time_func.put_datetime_in_filename(file_type='html', file=FileDirectory(directory_type='html').directory + 'example.html', include_seconds=True), html_title=file_func.convert_file_to_text(file=text_file))
     save_screenshot()

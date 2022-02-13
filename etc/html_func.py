@@ -1,6 +1,6 @@
 from py.xml import html
 from py.xml import raw
-import file_func
+from etc import file_func
 
 
 def create(html_file, html_title):

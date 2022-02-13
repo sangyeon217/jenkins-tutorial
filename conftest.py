@@ -1,8 +1,9 @@
 import pytest
-import selenium_func
-import time_func
+from etc import selenium_func
+from etc import time_func
 import logging
-import logging_config
+from file.log import logging_config
+from FileDirectory import FileDirectory
 import re
 
 
@@ -48,7 +49,7 @@ def pytest_runtest_makereport(item, call):
                 plugin_extras.append(pytest_html.extras.url(driver.current_url))
 
             if (report.skipped and xfail) or (report.failed and not xfail):
-                parent_directory = 'file/report/'
+                parent_directory = FileDirectory(directory_type='report').directory
                 screenshot_directory = selenium_func.make_screenshot_directory(directory=parent_directory, screenshot_directory_title='Failed')
                 image_file = selenium_func.save_full_page_screenshot(driver=driver, image_file_name='Screenshot_'+test_case_name, directory=screenshot_directory)
                 relative_path_image_file = image_file.lstrip(parent_directory)
@@ -57,6 +58,7 @@ def pytest_runtest_makereport(item, call):
                 plugin_extras.append(pytest_html.extras.url(relative_path_image_file, name='Screenshot'))
         elif has_driver:
             if (report.skipped and xfail) or (report.failed and not xfail):
-                selenium_func.save_full_page_screenshot(driver=driver, image_file_name=test_case_name, directory='file/screenshot/')
+                screenshot_directory = selenium_func.make_screenshot_directory(directory=FileDirectory(directory_type='screenshot').today_directory, screenshot_directory_title='Failed')
+                selenium_func.save_full_page_screenshot(driver=driver, image_file_name=test_case_name, directory=screenshot_directory)
 
         report.extra = fixture_extras + plugin_extras
