@@ -22,6 +22,8 @@ def test_logger():
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_configure(config):
+    if config.option.xmlpath:
+        config.option.xmlpath = time_func.put_datetime_in_filename(file_type='xml', file=config.option.xmlpath, include_seconds=True)
     if config.option.htmlpath:
         config.option.htmlpath = time_func.put_datetime_in_filename(file_type='html', file=config.option.htmlpath, include_seconds=True)
 
